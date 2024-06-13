@@ -29,15 +29,26 @@ public:
             speed_y *= -1;
         }
         // Cpu wins
-        if (x + radius >= GetScreenWidth()) {
-            cpu_score++;
-            ResetBall();
-        }
+        while (cpu_score <= 10 && player_score <= 10) {
+            if (x + radius >= GetScreenWidth()) {
+                cpu_score++;
+                ResetBall();
+            }
 
-        if (x - radius <= 0) {
-            player_score++;
-            ResetBall();
+            if (x - radius <= 0) {
+                player_score++;
+                ResetBall();
+            }
         }
+        if(cpu_score == 10){
+            DrawText("CPU WINS", 500, 200, 100, RED);
+
+			
+		}
+		if(player_score == 10){
+			DrawText("PLAYER WINS", 500, 200, 100, RED);    
+		}
+
     }
 
     void ResetBall() {
@@ -93,6 +104,7 @@ public:
         LimitMovement();
     }
 };
+
 
 Ball ball;
 Paddle player;

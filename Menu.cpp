@@ -2,6 +2,8 @@
 #include <raylib.h>
 
 #include "game.h"
+#include "options.h"
+
 using namespace std;
 
 void displayMenu() {
@@ -12,20 +14,24 @@ void displayMenu() {
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
-    Rectangle button = { screenWidth / 2.0f - 100, screenHeight / 2.0f - 25, 200, 50 };
-    bool buttonHovered = false;
-    bool buttonClicked = false;
+    Rectangle startButton = { screenWidth / 2.0f - 100, screenHeight / 2.0f - 25, 200, 50 };
+    Rectangle optionsButton = { screenWidth / 2.0f - 100, screenHeight / 2.0f - (-50), 200,50};
+    bool startButtonHovered = false;
+    bool startButtonClicked = false;
+
+    bool optionsButtonHovered = false;
+    bool optionsButtonClicked = false;
 
     // Main game loop
     while (!WindowShouldClose()) {  // Detect window close button or ESC key
 
         // Update
-        buttonHovered = CheckCollisionPointRec(GetMousePosition(), button);
-
-        if (buttonHovered && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
-            buttonClicked = true;
+        startButtonHovered = CheckCollisionPointRec(GetMousePosition(), startButton);
+        optionsButtonHovered = CheckCollisionPointRec(GetMousePosition(), optionsButton);
+        if (startButtonHovered && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+            startButtonClicked = true;
         }
-        
+
         // Draw
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -33,30 +39,42 @@ void displayMenu() {
         DrawText("PONG", 500, 200, 100, RED);
 
         // Draw button
-        if (buttonHovered) {
-            DrawRectangleRec(button, BLUE);
+        if (startButtonHovered) {
+            DrawRectangleRec(startButton, BLUE);
         }
         else {
-            DrawRectangleRec(button, GRAY);
+            DrawRectangleRec(startButton, GRAY);
         }
-        DrawText("START GAME", screenWidth / 2.0f - 80, screenHeight / 2.0f - 15, 20, buttonHovered ? DARKGRAY : BLACK);
+        DrawText("START", screenWidth / 2.0f - 80, screenHeight / 2.0f - 15, 20, startButtonHovered ? DARKGRAY : BLACK);
+
+
+        if (optionsButtonHovered) {
+            DrawRectangleRec(optionsButton, BLUE);
+        }
+        else {
+            DrawRectangleRec(optionsButton, GRAY);
+        }
+        DrawText("OPTIONS", screenWidth / 2.0f - 80, screenHeight / 2.0f - (-65), 20, startButtonHovered ? DARKGRAY : BLACK);
 
         // Button click action
-        if (buttonClicked) {
-            DrawText("Button Clicked!", 500, 300, 40, GREEN);
+        if (startButtonClicked) {
+
             startGame();
-            buttonClicked = false;
-            
+            startButtonClicked = false;
+            break;
             // Reset button click
         }
 
-        EndDrawing();
-    }
-    
-    // Main game loop
-    
-    //----------------------------------------------------------------------------------
+        if (optionsButtonClicked) {
 
-    CloseWindow();
+            EndDrawing();
+        }
+
+        // Main game loop
+
+        //----------------------------------------------------------------------------------
+        CloseWindow();
+
+    }
 }
 

@@ -130,10 +130,12 @@
   <ItemGroup>
     <ClCompile Include="..\game.cpp" />
     <ClCompile Include="..\Menu.cpp" />
+    <ClCompile Include="..\options.cpp" />
     <ClCompile Include="pingpongGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\game.h" />
+    <ClInclude Include="..\options.h" />
     <ClInclude Include="x64\menuH.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
